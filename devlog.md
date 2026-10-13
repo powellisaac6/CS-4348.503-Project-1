@@ -41,7 +41,7 @@ End of session 1. Next session I would like to get logger.py writing to the log 
 
 NOTE: A few general errors pushed me past the original time: Gitignore was not working properly and there were some wording/formatting errors in the devlog. Not enough to make a new entry. Ran git rm --cached log.txt in my command line to stop tracking. Everything is fixed now.
 
-# 10-13-2026 
+# 10-13-2026 12:28 PM
 
 I want to make logger.py write to the log file now.
 I'll remove the command line print.
