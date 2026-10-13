@@ -76,7 +76,7 @@ Here is the result:
 2026-10-13 13:22 [ENCRYPT] Text encrypted
 
 I want logger.py to do some error handling in case a log file isn't given as an argument.
-So, if a filename is not given as an argument, then the program will stop and provide an error message.
+So, if a filename is not given as an argument, then the program will stop and provide an error message. Testing result below.
 
 python logger.py
 
