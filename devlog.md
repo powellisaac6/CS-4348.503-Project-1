@@ -43,7 +43,7 @@ NOTE: A few general errors pushed me past the original time: Gitignore was not w
 
 # 10-13-2026 12:28 PM
 
-I want to make logger.py write to the log file now.
+This session I want to make logger.py write to the log file now.
 I'll remove the command line print.
 Instead I want it to output write to the log file.
 I'll have it print as such: 
@@ -61,3 +61,22 @@ The log file:
 [ENCRYPT] Text encrypted
 
 Works as intended.
+
+# 10-13-2026 1:46 PM
+
+Next I'm going to add timestamp recording to logger.py.
+
+datetime.now() will get the date from the local system.
+
+strftime("%Y-%m-%d %H:%M") will put it in the correct format.
+
+Now all there is left to do is output it before the action and message. 
+Here is the result: 
+
+2026-10-13 13:22 [ENCRYPT] Text encrypted
+
+I want logger.py to do some error handling in case a log file isn't given as an argument.
+So, if a filename is not given as an argument, then the program will stop and provide an error message.
+
+The major functional operations for logger.py have been completed. This concludes session 2. 
+Next session, I would like to start programming message encryption.
