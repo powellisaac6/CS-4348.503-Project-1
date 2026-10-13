@@ -5,7 +5,7 @@ def main():
 
     log_file = sys.argv[1]
 
-    with open(log_file, "a"):
+    with open(log_file, "a") as output:
         for line in sys.stdin:
             line = line.strip()
 
@@ -19,8 +19,8 @@ def main():
             action = substrings[0]
             message = substrings[1] if len(substrings) > 1 else ""
 
-            print("Action:", action)
-            print("Message:", message)
+            output.write(f"[{action}] {message}\n")
+            output.flush()
 
 
 if __name__ == "__main__":
