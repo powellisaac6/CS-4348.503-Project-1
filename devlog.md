@@ -78,5 +78,11 @@ Here is the result:
 I want logger.py to do some error handling in case a log file isn't given as an argument.
 So, if a filename is not given as an argument, then the program will stop and provide an error message.
 
+python logger.py
+
+Error! Provide log file name.
+
+Example: python logger.py log.txt
+
 The major functional operations for logger.py have been completed. This concludes session 2. 
 Next session, I would like to start programming message encryption.
