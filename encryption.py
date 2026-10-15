@@ -1,5 +1,13 @@
 import sys
 
+def vigenere(text, key, decrypt=False):
+    result = ""
+    for i, char in enumerate(text):
+        shift = ord(key[i % len(key)]) - ord("A")
+        if decrypt:
+            shift = -shift
+        result += chr((ord(char) - ord("A") + shift) % 26 + ord("A"))
+    return result
 
 def main():
     passkey = None
@@ -19,7 +27,7 @@ def main():
 
         if command == "PASS":
             if not argument:
-                print("ERROR Password cannot be empty", flush=True)
+                print("ERROR Passkey cannot be empty", flush=True)
             else:
                 passkey = argument
                 print("RESULT", flush=True)
@@ -27,9 +35,13 @@ def main():
         elif command == "ENCRYPT" or command == "DECRYPT":
             if passkey is None:
                 print("ERROR Password not set", flush=True)
+            elif not argument:
+                print("ERROR Nothing to encrypt/decrypt", flush=True)
             else:
-                print("ERROR No cipher", flush=True)
-
+                text = argument.upper()
+                key = passkey.upper()
+                result = vigenere(text, key, decrypt=(command == "DECRYPT"))
+                print("RESULT", result, flush=True)
         else:
             print("ERROR Unknown command", flush=True)
 

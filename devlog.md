@@ -87,7 +87,7 @@ Example: python logger.py log.txt
 The major functional operations for logger.py have been completed. This concludes session 2. 
 Next session, I would like to start programming message encryption.
 
-# 10-15-2026 3:31 PM
+# 10-15-2026 4:33 PM
 
 This session I will create basic command recognition for encryption.py.
 I will start with making a passkey variable.
@@ -110,7 +110,7 @@ Here's an example of how the code functions:
 
 User: PASS
 
-System: ERROR Password cannot be empty
+System: ERROR Passkey cannot be empty
 
 User: ENCRYPT HELLO
 
@@ -133,3 +133,71 @@ User: QUIT
 The first goal of this session was to create a basic skeleton of encryption.py that recognizes commands.
 No significant errors occurred given the simplicity.
 The next entry will expand on the actual functionality of each command.
+
+# 10-15-2026 6:20 PM
+
+I plan on implementing the Vigenère cipher now. I was struggling to understand it so I decided to conduct a bit of research before I began. 
+
+I found that first I need to convert each letter of the passkey and each letter of the message I'm encrypting/decrypting into a number.
+A = 0, B = 1, C = 2, ... , Z = 25.
+A loop will go through each letter of the passkey and the message.
+For ENCRYPT, each letter in the passkey will be converted to a number. The letter in the message at the same index will shift right by that number.
+For DECRYPT, each letter in the passkey will be converted to a number. The letter in the message at the same index will shift left by that number.
+
+How it works:
+
+Passkey: H
+
+Message: H
+
+H = 7
+
+7 + 7 = 14
+
+O = 14
+
+Encrypted Message: O
+
+I will insert % 26 in case an index reaches a value greater than 25 or less than 0.
+It will wrap around in such cases. 
+
+If the passkey is shorter than the message, the passkey will just repeat.
+
+Example: 
+
+Passkey: HELLO
+
+Message: HELLOOO
+
+New passkey: HELLOHE
+
+I will now make it so the encrypt and decrypt commands run the Vigenère cipher. A new error is given if no string is passed to process.
+
+User: ENCRYPT HELLO
+
+System: ERROR Password not set
+
+User: PASS HELLO
+
+System: RESULT
+
+User: ENCRYPT HELLO
+
+System: RESULT OIWWC
+
+User: DECRYPT OIWWC
+
+System: RESULT HELLO
+
+User: ENCRYPT
+
+System: ERROR Nothing to encrypt/decrypt
+
+User: DECRYPT
+
+System: ERROR Nothing to encrypt/decrypt
+
+User: QUIT
+
+Everything works. 
+Next session I will begin the driver program.
