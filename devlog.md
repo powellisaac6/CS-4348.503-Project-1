@@ -86,3 +86,50 @@ Example: python logger.py log.txt
 
 The major functional operations for logger.py have been completed. This concludes session 2. 
 Next session, I would like to start programming message encryption.
+
+# 10-15-2026 3:31 PM
+
+This session I will create basic command recognition for encryption.py.
+I will start with making a passkey variable.
+I'll use the same line handling I used in logger.py. 
+Command/argument will be used to describe the string split instead of action/message. 
+QUIT will exit the program as usual.
+PASS will only store a string in the passkey variable for now and nothing else. 
+Basic error handling for PASS will prevent empty strings.
+ENCRYPT and DECRYPT commands will be recognized but will do nothing for now. 
+I will implement the Vigenère cipher in the second half of this session.
+If the password has not been set, the ENCRYPT and DECRYPT commands will return errors. 
+The code also will return errors if an unknown command is given. 
+
+encryption.py reads directly from stdin and writes directly to stdout.
+Later on, the driver will use a separate process to run encryption.py and connect these streams using pipes.
+flush=True will be added to each print statement so the output can be sent directly through a pipe.
+If not used, the stream could sit in the buffer forever.
+
+Here's an example of how the code functions:
+
+User: PASS
+
+System: ERROR Password cannot be empty
+
+User: ENCRYPT HELLO
+
+System: ERROR Password not set
+
+User: PASS HELLO
+
+System: RESULT
+
+User: ENCRYPT HELLO
+
+System: ERROR No cipher
+
+User: DAJKFDK
+
+System: ERROR Unknown command
+
+User: QUIT
+
+The first goal of this session was to create a basic skeleton of encryption.py that recognizes commands.
+No significant errors occurred given the simplicity.
+The next entry will expand on the actual functionality of each command.
