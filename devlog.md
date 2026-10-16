@@ -1,3 +1,11 @@
+# 10-16-2026 6:45 PM
+
+NOTE: This entry was written at the end of the project since I forgot to give my overall thoughts at the beginning.
+
+The entire project revolves around three programs: logger.py logs user and system actions, encryption.py encrypts/decrypts messages with the Vigenère cipher and stores passkeys, and driver.py runs logger.py and encryption.py as processes and connects to them with pipes. Users run commands through the command line using driver.py's command menu.
+
+Overall, it was interesting to learn how encryption works and it was really cool to code the cipher from scratch. I didn't have much experience with pipes before this so I enjoyed learning how the driver interacts with each process.
+
 # 10-12-2026 11:50 PM
 
 First entry of the first session.
@@ -331,3 +339,10 @@ I'll manually change it to false for the password command.
 That should be it!
  
 NOTE: I tested everything and it worked but it ended up being longer than I expected for a devlog entry so I excluded it.
+
+# 10-16-2026 6:07 PM
+
+One last unexpected session came up.
+I forgot to add the readme.
+I added it just now.
+I still need to add my overall thoughts at the beginning.
