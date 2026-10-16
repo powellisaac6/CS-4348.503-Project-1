@@ -9,6 +9,8 @@
 ## How to run
 python3 driver.py log.txt
 
+(On windows: python driver.py log.txt)
+
 Only driver.py needs to be run since it launches the other two programs by itself but all files must be in the same location.
 
 ## Notes for the TA
