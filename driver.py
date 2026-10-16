@@ -11,6 +11,17 @@ def encrypt(encryption_program, command):
     encryption_program.stdin.flush()
     return encryption_program.stdout.readline().strip()
 
+def check_only_letters(text):
+    return text.isascii() and text.isalpha()
+
+def get_txt(history, sys_msg):
+    # add history functionality later
+    txt = input(sys_msg).strip()
+    if not check_only_letters(txt):
+        print("Error: only letters are allowed.")
+        return None
+    return txt
+
 def main():
     if len(sys.argv) != 2:
         print("Error! Provide log file name.")
@@ -50,7 +61,21 @@ def main():
             for number, item in enumerate(history, start=1):
                 print(f"{number}. {item}")
  
-        elif command in ("password", "encrypt", "decrypt"):
+        elif command == "password":
+            log(logger, "COMMAND", "password")
+            txt = get_txt(history, "Enter a password: ")
+            if txt is None:
+                log(logger, "ERROR", "Password must contain only letters")
+            else:
+                reply = encrypt(encryption_program, "PASS " + txt.upper())
+                if reply.startswith("RESULT"):
+                    print("Password set.")
+                    log(logger, "RESULT", "Password set")
+                else:
+                    print(reply)
+                    log(logger, "ERROR", reply)
+
+        elif command in ("encrypt", "decrypt"):
             log(logger, "COMMAND", command)
             print(f"No {command} yet.")
  

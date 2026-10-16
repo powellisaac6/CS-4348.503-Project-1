@@ -256,3 +256,19 @@ I tested a few commands:
 Everything works as intended.
 
 Next session, I would like to have each command to be fully functional.
+
+# 10-15-2026 9:40 PM
+
+To start this session, I am going to add functionality for the password command to the driver.
+
+I want to make a function that integrates letter checking and the history functionality that I will add later.
+So, get_txt() will collect the input of the user and send it to check_only_letters() which will ensure the password is only letters.
+I also am adding history in as a parameter for later.
+
+Enter a command: password
+
+Enter a password: hello
+
+Password set.
+
+Everything works.
