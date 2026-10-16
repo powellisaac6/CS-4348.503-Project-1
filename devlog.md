@@ -50,9 +50,9 @@ I'll have it print as such:
 
 [action] message
 
-To avoid buffer delays I'll add the output.flush() command.
-
 Now to test I'll write to the command "START Logging started" and "ENCRYPT Text encrypted" to the command line.
+
+To avoid buffer delays I'll add the output.flush() command.
 
 The log file:
 
@@ -136,7 +136,7 @@ The next entry will expand on the actual functionality of each command.
 
 # 10-15-2026 6:20 PM
 
-I plan on implementing the Vigenère cipher now. I was struggling to understand it so I decided to conduct a bit of research before I began. 
+I plan on implementing the Vigenère cipher now. Understanding how it worked was a little bit confusing at first but after going over the project guidelines and drawing it out, I can comprehend how to move forward and begin coding.
 
 I found that first I need to convert each letter of the passkey and each letter of the message I'm encrypting/decrypting into a number.
 A = 0, B = 1, C = 2, ... , Z = 25.
@@ -201,3 +201,133 @@ User: QUIT
 
 Everything works. 
 Next session I will begin the driver program.
+
+# 10-15-2026 7:10 PM
+
+This session I'm going to implement driver.py.
+I'm going to start by connecting it to logger.py through a pipe.
+I'll use the same logic for starting up logger.py requiring a log filename entry as an argument.
+
+driver.py will then open a pipe to logger.py using subprocess.Popen().
+stdin=subprocess.PIPE allows the driver to write to the logger's stdin.
+logger.py will log the start and exit messages from the driver.
+Lastly, driver.py will issue a quit command to the logger using the pipe.
+flush() is used again to ensure no output gets stuck in the buffer.
+wait() makes it so the driver can't exit until the logger is finished.
+
+Running the python driver.py log.txt results in this in the log file:
+
+2026-10-15 19:02 [START] Driver started
+
+2026-10-15 19:02 [EXIT] Driver exiting
+
+Everything works.
+
+# 10-15-2026 8:15 PM
+
+I'm going to add a menu loop now.
+I'll start the loop directly in between the driver start and exit log commands.
+Before the loop, I'm going to add an array to track history.
+In the loop, I'll have the program give the user a list of commands (password, encrypt, decrypt, history, quit).
+The input should be case insensitive and strip any unnecessary white space automatically so strip() and lower() will be used.
+I'll have each command be logged using the logger's pipe.
+No command functionality yet.
+
+I'm not sure why I just now thought of this but I almost forgot to implement the encryption program's pipe. 
+Inserting after creating the menu loop may be a bit wonky.
+I'll just copy what I did for logger.py for the most part.
+
+I tested a few commands:
+
+2026-10-15 19:21 [START] Driver started
+
+2026-10-15 19:21 [COMMAND] history
+
+2026-10-15 19:21 [COMMAND] history
+
+2026-10-15 19:22 [ERROR] Unknown command
+
+2026-10-15 19:22 [COMMAND] encrypt
+
+2026-10-15 19:22 [COMMAND] quit
+
+2026-10-15 19:22 [EXIT] Driver exiting
+
+Everything works as intended.
+
+Next session, I would like to have each command to be fully functional.
+
+# 10-15-2026 9:40 PM
+
+To start this session, I am going to add functionality for the password command to the driver.
+
+I want to make a function that integrates letter checking and the history functionality that I will add later.
+So, get_txt() will collect the input of the user and send it to check_only_letters() which will ensure the password is only letters.
+I also am adding history in as a parameter for later.
+
+Enter a command: password
+
+Enter a password: hello
+
+Password set.
+
+Everything works.
+
+# 10-15-2026 10:45 PM
+
+To continue, I am going to add functionality for encryption and decryption.
+I'll use get_txt() again to collect the user's input and have the program run an encryption/decryption on the user's message through a pipe if it's valid (only letters).
+
+The reply from encryption.py should always begin with "RESULT" but just in case, I want to add some error handling.
+If the reply does contain "RESULT", I'm going to have to add some functionality to remove "RESULT" from the string.
+In that case, I'll add a strip() operation. Print the results to the command line and log them of course.
+
+I ran into an issue and the program is not running properly. Everything but encrypt and decrypt work.
+
+It turns out I typed "startwith" instead of "startswith" on the line 
+
+if reply.startswith("RESULT)
+
+Here are some post-fix test results:
+
+Enter a command: password
+
+Enter a password: hello
+
+Password set.
+
+Enter a command: encrypt
+
+Enter a string to encrypt: hello
+
+Result: OIWWC
+
+Enter a command: decrypt
+
+Enter a string to decrypt: oiwwc
+
+Result: HELLO
+
+Everything works.
+
+# 10-15-2026 11:50 PM
+
+This should be my last entry and my final session.
+I want to finish off with adding the history functionality.
+
+First and foremost, I need to append a string any time it is being encrypted or decrypted so I'll add that under the encryption/decryption branch.
+
+Whenever the program gets a string from the user, I need it to prompt them if they want to use a string from history.
+I'll have it only do that when history is not empty.
+If they choose yes, they are going to need to see the history to pick an option so I'll have the program print out the current history with a number next to it.
+The user should be able to pick the number instead of having to type it out.
+I'll set 0 to the new string option.
+Of course I need to add error checking if they type in a negative number or something higher than the current history count.
+
+I'll create a variable to pass in if a new string is being saved.
+It should always be true for encrypt/decrypt so I will set it to true as default.
+I'll manually change it to false for the password command.
+
+That should be it!
+ 
+NOTE: I tested everything and it worked but it ended up being longer than I expected for a devlog entry so I excluded it.
