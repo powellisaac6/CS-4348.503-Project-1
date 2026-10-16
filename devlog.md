@@ -222,3 +222,37 @@ Running the python driver.py log.txt results in this in the log file:
 2026-10-15 19:02 [EXIT] Driver exiting
 
 Everything works.
+
+# 10-15-2026 7:50 PM
+
+I'm going to add a menu loop now.
+I'll start the loop directly in between the driver start and exit log commands.
+Before the loop, I'm going to add an array to track history.
+In the loop, I'll have the program give the user a list of commands (password, encrypt, decrypt, history, quit).
+The input should be case insensitive and strip any unnecessary white space automatically so strip() and lower() will be used.
+I'll have each command be logged using the logger's pipe.
+No command functionality yet.
+
+I'm not sure why I just now thought of this but I almost forgot to implement the encryption program's pipe. 
+Inserting after creating the menu loop may be a bit wonky.
+I'll just copy what I did for logger.py for the most part.
+
+I tested a few commands:
+
+2026-10-15 19:21 [START] Driver started
+
+2026-10-15 19:21 [COMMAND] history
+
+2026-10-15 19:21 [COMMAND] history
+
+2026-10-15 19:22 [ERROR] Unknown command
+
+2026-10-15 19:22 [COMMAND] encrypt
+
+2026-10-15 19:22 [COMMAND] quit
+
+2026-10-15 19:22 [EXIT] Driver exiting
+
+Everything works as intended.
+
+Next session, I would like to have each command to be fully functional.

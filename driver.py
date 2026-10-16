@@ -6,6 +6,10 @@ def log(logger, action, message=""):
     logger.stdin.write(f"{action} {message}\n")
     logger.stdin.flush()
 
+def encrypt(encryption_program, command):
+    encryption_program.stdin.write(command + "\n")
+    encryption_program.stdin.flush()
+    return encryption_program.stdout.readline().strip()
 
 def main():
     if len(sys.argv) != 2:
@@ -20,12 +24,48 @@ def main():
         stdin=subprocess.PIPE,
         text=True,
     )
-
+    encryption_program = subprocess.Popen(
+        [sys.executable, "encryption.py"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
+    
+    history = []
     log(logger, "START", "Driver started")
+
+    while True:
+        print()
+        print("Commands: password, encrypt, decrypt, history, quit")
+        command = input("Enter a command: ").strip().lower()
+ 
+        if command == "quit":
+            log(logger, "COMMAND", "quit")
+            break
+ 
+        elif command == "history":
+            log(logger, "COMMAND", "history")
+            if not history:
+                print("History is empty.")
+            for number, item in enumerate(history, start=1):
+                print(f"{number}. {item}")
+ 
+        elif command in ("password", "encrypt", "decrypt"):
+            log(logger, "COMMAND", command)
+            print(f"No {command} yet.")
+ 
+        else:
+            log(logger, "ERROR", "Unknown command")
+            print("Unknown command.")
+
     log(logger, "EXIT", "Driver exiting")
 
+    encryption_program.stdin.write("QUIT\n")
+    encryption_program.stdin.flush()
     logger.stdin.write("QUIT\n")
     logger.stdin.flush()
+
+    encryption_program.wait()
     logger.wait()
 
 
