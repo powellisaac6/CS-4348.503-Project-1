@@ -136,7 +136,7 @@ The next entry will expand on the actual functionality of each command.
 
 # 10-15-2026 6:20 PM
 
-I plan on implementing the Vigenère cipher now. I was struggling to understand it so I decided to conduct a bit of research before I began. 
+I plan on implementing the Vigenère cipher now. Understanding how it worked was a little bit confusing at first but after going over the project guidelines and drawing it out, I can comprehend how to move forward and begin coding.
 
 I found that first I need to convert each letter of the passkey and each letter of the message I'm encrypting/decrypting into a number.
 A = 0, B = 1, C = 2, ... , Z = 25.
@@ -201,3 +201,24 @@ User: QUIT
 
 Everything works. 
 Next session I will begin the driver program.
+
+# 10-15-2026 7:10 PM
+
+This session I'm going to implement driver.py.
+I'm going to start by connecting it to logger.py through a pipe.
+I'll use the same logic for starting up logger.py requiring a log filename entry as an argument.
+
+driver.py will then open a pipe to logger.py using subprocess.Popen().
+stdin=subprocess.PIPE allows the driver to write to the logger's stdin.
+logger.py will log the start and exit messages from the driver.
+Lastly, driver.py will issue a quit command to the logger using the pipe.
+flush() is used again to ensure no output gets stuck in the buffer.
+wait() makes it so the driver can't exit until the logger is finished.
+
+Running the python driver.py log.txt results in this in the log file:
+
+2026-10-15 19:02 [START] Driver started
+
+2026-10-15 19:02 [EXIT] Driver exiting
+
+Everything works.
