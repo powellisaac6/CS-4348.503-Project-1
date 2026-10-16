@@ -14,12 +14,26 @@ def encrypt(encryption_program, command):
 def check_only_letters(text):
     return text.isascii() and text.isalpha()
 
-def get_txt(history, sys_msg):
-    # add history functionality later
+def get_txt(history, sys_msg, save_new=True):
+    if history:
+        choice = input("Use string from history? (y/n): ").strip().lower()
+        if choice == "y":
+            while True:
+                for number, item in enumerate(history, start=1):
+                    print(f"{number}. {item}")
+                num = input("Enter a number (Enter 0 for new string): ").strip()
+                if num == "0":
+                    break
+                if num.isdigit() and 1 <= int(num) <= len(history):
+                    return history[int(num) - 1]
+                print("Invalid choice.")
+
     txt = input(sys_msg).strip()
     if not check_only_letters(txt):
         print("Error: only letters are allowed.")
         return None
+    if save_new:
+        history.append(txt.upper())
     return txt
 
 def main():
@@ -63,7 +77,7 @@ def main():
  
         elif command == "password":
             log(logger, "COMMAND", "password")
-            txt = get_txt(history, "Enter a password: ")
+            txt = get_txt(history, "Enter a password: ", False)
             if txt is None:
                 log(logger, "ERROR", "Password must contain only letters")
             else:
@@ -85,6 +99,7 @@ def main():
                 if reply.startswith("RESULT"):
                     result = reply[len("RESULT"):].strip()
                     print(f"Result: {result}")
+                    history.append(result)
                     log(logger, "RESULT", result)
                 else:
                     print(reply)

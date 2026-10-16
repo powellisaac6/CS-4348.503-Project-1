@@ -309,3 +309,25 @@ Enter a string to decrypt: oiwwc
 Result: HELLO
 
 Everything works.
+
+# 10-15-2026 11:50 PM
+
+This should be my last entry and my final session.
+I want to finish off with adding the history functionality.
+
+First and foremost, I need to append a string any time it is being encrypted or decrypted so I'll add that under the encryption/decryption branch.
+
+Whenever the program gets a string from the user, I need it to prompt them if they want to use a string from history.
+I'll have it only do that when history is not empty.
+If they choose yes, they are going to need to see the history to pick an option so I'll have the program print out the current history with a number next to it.
+The user should be able to pick the number instead of having to type it out.
+I'll set 0 to the new string option.
+Of course I need to add error checking if they type in a negative number or something higher than the current history count.
+
+I'll create a variable to pass in if a new string is being saved.
+It should always be true for encrypt/decrypt so I will set it to true as default.
+I'll manually change it to false for the password command.
+
+That should be it!
+ 
+NOTE: I tested everything and it worked but it ended up being longer than I expected for a devlog entry so I excluded it.
