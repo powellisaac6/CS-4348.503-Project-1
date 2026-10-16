@@ -50,9 +50,9 @@ I'll have it print as such:
 
 [action] message
 
-To avoid buffer delays I'll add the output.flush() command.
-
 Now to test I'll write to the command "START Logging started" and "ENCRYPT Text encrypted" to the command line.
+
+To avoid buffer delays I'll add the output.flush() command.
 
 The log file:
 
@@ -270,5 +270,42 @@ Enter a command: password
 Enter a password: hello
 
 Password set.
+
+Everything works.
+
+# 10-15-2026 10:45 PM
+
+To continue, I am going to add functionality for encryption and decryption.
+I'll use get_txt() again to collect the user's input and have the program run an encryption/decryption on the user's message through a pipe if it's valid (only letters).
+
+The reply from encryption.py should always begin with "RESULT" but just in case, I want to add some error handling.
+If the reply does contain "RESULT", I'm going to have to add some functionality to remove "RESULT" from the string.
+In that case, I'll add a strip() operation. Print the results to the command line and log them of course.
+
+I ran into an issue and the program is not running properly. Everything but encrypt and decrypt work.
+
+It turns out I typed "startwith" instead of "startswith" on the line 
+
+if reply.startswith("RESULT)
+
+Here are some post-fix test results:
+
+Enter a command: password
+
+Enter a password: hello
+
+Password set.
+
+Enter a command: encrypt
+
+Enter a string to encrypt: hello
+
+Result: OIWWC
+
+Enter a command: decrypt
+
+Enter a string to decrypt: oiwwc
+
+Result: HELLO
 
 Everything works.

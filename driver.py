@@ -77,7 +77,18 @@ def main():
 
         elif command in ("encrypt", "decrypt"):
             log(logger, "COMMAND", command)
-            print(f"No {command} yet.")
+            txt = get_txt(history, f"Enter a string to {command}: ")
+            if txt is None:
+                log(logger, "ERROR", "Input must contain only letters")
+            else:
+                reply = encrypt(encryption_program, command.upper() + " " + txt.upper())
+                if reply.startswith("RESULT"):
+                    result = reply[len("RESULT"):].strip()
+                    print(f"Result: {result}")
+                    log(logger, "RESULT", result)
+                else:
+                    print(reply)
+                    log(logger, "ERROR", reply)
  
         else:
             log(logger, "ERROR", "Unknown command")
